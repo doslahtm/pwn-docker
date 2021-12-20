@@ -1,4 +1,5 @@
 FROM ubuntu:20.04
+LABEL email="tuckdo4484@gmail.com"
 WORKDIR /root
 ENV LC_CTYPE C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
@@ -24,6 +25,7 @@ RUN echo "#!/bin/sh\\nexec gdb -q -ex init-pwndbg \"\$@\"" > /usr/bin/gdb-pwndbg
 RUN echo "#!/bin/sh\\nexec gdb -q -ex init-gef \"\$@\"" > /usr/bin/gdb-gef
 RUN chmod +x /usr/bin/gdb-*
 
+# customize zsh and oh-my-zsh
 RUN mkdir .zsh
 RUN git clone https://github.com/sindresorhus/pure .zsh/pure
 RUN git clone https://github.com/zdharma-continuum/fast-syntax-highlighting .zsh/fast-syntax-highlighting
