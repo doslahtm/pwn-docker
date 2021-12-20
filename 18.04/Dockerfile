@@ -1,4 +1,5 @@
 FROM ubuntu:18.04
+LABEL email="tuckdo4484@gmail.com"
 WORKDIR /root
 ENV LC_CTYPE C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
