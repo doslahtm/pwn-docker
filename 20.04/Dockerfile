@@ -6,10 +6,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN dpkg --add-architecture i386
 
 RUN apt update -y
-RUN apt install python python-dev python-setuptools python3 python3-pip python3-dev python3-setuptools python-capstone libssl-dev libffi-dev build-essential libc6-i386 libc6-dbg gcc-multilib make gcc netcat git curl wget gdb vim nano zsh ruby-full -y
-RUN curl -O https://bootstrap.pypa.io/2.7/get-pip.py && python get-pip.py && rm get-pip.py
-RUN python -m pip install --upgrade pip && python3 -m pip install --upgrade pip
-RUN python -m pip install --ignore-installed pwntools
+RUN apt-get install nmap -y
+RUN apt install python python-dev python-setuptools python3 python3-pip python3-dev python3-setuptools python-capstone libssl-dev libffi-dev build-essential libc6-i386 libc6-dbg gcc-multilib make gcc netcat git curl wget gdb vim nano zsh ruby-full net-tools socat tmux -y
+RUN curl -O http://bootstrap.pypa.io/2.7/get-pip.py && python3 get-pip.py && rm get-pip.py
+RUN python3 -m pip install --upgrade pip && python3 -m pip install --upgrade pip
+RUN python3 -m pip install --ignore-installed pwntools==4.5.1
 RUN gem install one_gadget seccomp-tools
 
 RUN git clone https://github.com/pwndbg/pwndbg .pwndbg
@@ -25,9 +26,8 @@ RUN chmod +x /usr/bin/gdb-*
 
 RUN mkdir .zsh
 RUN git clone https://github.com/sindresorhus/pure .zsh/pure
-RUN git clone https://github.com/zdharma/fast-syntax-highlighting .zsh/fast-syntax-highlighting
+RUN git clone https://github.com/zdharma-continuum/fast-syntax-highlighting .zsh/fast-syntax-highlighting
 RUN echo "ZSH_THEME=""\\nsource /root/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh\\nfpath+=/root/.zsh/pure\\nautoload -U promptinit; promptinit\\nprompt pure" > .zshrc
 
-RUN mkdir /pwn
-WORKDIR /pwn
-CMD [ "/bin/zsh" ]
+RUN mkdir /root/pwn
+WORKDIR /root/pwn
