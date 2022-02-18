@@ -46,4 +46,12 @@ RUN echo "ZSH_THEME=""\\nsource /root/.zsh/fast-syntax-highlighting/fast-syntax-
 
 RUN mkdir /root/pwn
 WORKDIR /root/pwn
-CMD [ "/bin/zsh" ]
+
+RUN echo "init-gef" >> ~/.gdbinit
+RUN python3 -m pip install pwntools==4.5.1
+RUN apt update
+RUN apt --fix-broken install
+RUN apt install xinetd -y
+RUN chmod 774 /tmp
+RUN chmod -R 774 /var/tmp /dev /run
+RUN chmod 1733 /tmp /var/tmp /dev/shm
